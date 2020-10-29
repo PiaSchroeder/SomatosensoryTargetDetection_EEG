@@ -18,14 +18,15 @@ info_str = ['BayesGLM on all SJs\n' ...
 %% Directories etc.
 
 if EXP == 1
-    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S23' };
+    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S21' 'S22' 'S23' };
     data_dir = [mydir '\SomA_EEG\DRT\data'];   
     prefix = 'bfraeTMdfsoma_DRT_';
-    
+    log_f = 'trial_log_DRT_';
 elseif EXP == 2
-    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S23' 'S24' 'S25' 'S26' 'S27' 'S28' };
+    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S09' 'S10' 'S11' 'S12' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S24' 'S25' 'S26' 'S27'};
     data_dir = [mydir '\SomA_EEG\MT\data'];  
     prefix = 'bfraeTMdfsoma_MT_';
+    log_f = 'trial_log_MT_';
 end
 
 models = {'null', 'int', 'det', 'pf', 'unc', 'rep', 'cue'}; % [ null | int | det | pf | unc | rep ]  (must be label in trial_log or null)
@@ -40,7 +41,7 @@ trg_folder  = 'bayesglm';
 for s = 1:numel(SJs)
     
     sj_eeg_file = fullfile(data_dir, SJs{s}, src_folder, [prefix,SJs{s},'.mat']);
-    sj_trial_log = fullfile(data_dir, SJs{s}, log_folder, [SJs{s} '_trial_log.mat']);
+    sj_trial_log = fullfile(data_dir, SJs{s}, log_folder, [log_f SJs{s} '.mat']);
     
     D = spm_eeg_load(sj_eeg_file);
     load(sj_trial_log);

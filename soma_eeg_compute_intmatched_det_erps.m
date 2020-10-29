@@ -13,13 +13,15 @@ useBMS = 1;     % Mark detection effects from BMS
 %% Directories etc.
 
 if EXP == 1
-    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S23' };
+    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S21' 'S22' 'S23' };
     data_dir = [mydir '\SomA_EEG\DRT\data'];   
     prefix = 'bfraeTMdfsoma_DRT_';
+    log_f = 'trial_log_DRT_';
 elseif EXP == 2
-    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S23' 'S24' 'S25' 'S26' 'S27' 'S28' };
+    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S09' 'S10' 'S11' 'S12' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S24' 'S25' 'S26' 'S27'};
     data_dir = [mydir '\SomA_EEG\MT\data'];  
     prefix = 'bfraeTMdfsoma_MT_';
+    log_f = 'trial_log_MT_';
 end
 
 condition = 'det_intmatched';
@@ -71,7 +73,7 @@ if ~exist(ERP_file,'file')
         D = spm_eeg_load(fullfile(sj_data_dir,[prefix SJs{s} '.mat']));
         
         % Get trial definitions
-        trlog = fullfile(data_dir, SJs{s}, 'logs', [SJs{s}, '_trial_log.mat']);
+        trlog = fullfile(data_dir, SJs{s}, 'logs', [log_f SJs{s}, '.mat']);
         load(trlog)
         
         % make sure trial numbers match

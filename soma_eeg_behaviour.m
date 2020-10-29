@@ -12,24 +12,24 @@ mydir = '...';  % Directory containing project folder
 %% Directories etc
 
 if EXP == 1
-    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S23' };
+    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S21' 'S22' 'S23' };
     data_dir = [mydir '\SomA_EEG\DRT\data'];   
-    
+    log_f = 'trial_log_DRT_';
 elseif EXP == 2
-    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10' 'S11' 'S12' 'S13' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S23' 'S24' 'S25' 'S26' 'S27' 'S28' };
+    SJs  = { 'S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S09' 'S10' 'S11' 'S12' 'S14' 'S15' 'S16' 'S17' 'S18' 'S19' 'S20' 'S21' 'S22' 'S24' 'S25' 'S26' 'S27'};
     data_dir = [mydir '\SomA_EEG\MT\data'];  
+    log_f = 'trial_log_MT_';
 end
 
 trg_dir = fullfile(data_dir,'2nd level','Behaviour');
 log_dir = 'logs';
-logf = '_trial_log.mat';
 
 %% Detection rates
 det_rates = nan(numel(SJs),1);
 
 for s = 1:numel(SJs)
     
-    sj_trl_log = fullfile(data_dir, SJs{s}, log_dir, [SJs{s} logf]);
+    sj_trl_log = fullfile(data_dir, SJs{s}, log_dir, [log_f SJs{s} '.mat']);
     load(sj_trl_log)
     
     [~,det_idx] = ismember('det',trial_log.labels);
@@ -55,7 +55,7 @@ RTs.group_sd = [];
 
 for s = 1:numel(SJs)
     
-    sj_trl_log = fullfile(data_dir, SJs{s}, log_dir, [SJs{s} logf]);
+    sj_trl_log = fullfile(data_dir, SJs{s}, log_dir, [log_f SJs{s} '.mat']);
     load(sj_trl_log)
     
     [~,rt_idx] = ismember('rts',trial_log.labels);
@@ -88,7 +88,7 @@ BF10_det_rep = nan(numel(SJs),1);
 
 for s = 1:numel(SJs)
     
-    log_file = fullfile(data_dir, SJs{s},log_dir,[SJs{s} logf]);
+    sj_trl_log = fullfile(data_dir, SJs{s}, log_dir, [log_f SJs{s} '.mat']);
     load(log_file)
     
     [~,det_idx] = ismember('det',trial_log.labels);
