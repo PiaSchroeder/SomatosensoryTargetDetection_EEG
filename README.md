@@ -1,5 +1,9 @@
 # SomatosensoryTargetDetection_EEG
-Matlab scripts to analyse data from an EEG study on somatosensory target detection.
+Matlab scripts to analyse data from an EEG study on somatosensory target detection:
+
+Schröder, P., Nierhaus, T., & Blankenburg, F. (2020). Late cortical potentials are not a reliable marker of somatosensory awareness. bioRxiv. https://doi.org/10.1101/2020.10.01.322651
+
+Data sets are available on figshare: https://figshare.com/articles/dataset/Neural_basis_of_somatosensory_target_detection_-_Data_EEG_/13160381
 
 Requires SPM12 software package: https://www.fil.ion.ucl.ac.uk/spm/software/spm12/
 
