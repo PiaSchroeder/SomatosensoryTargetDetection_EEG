@@ -76,10 +76,12 @@ end
 RTs.group_mean = mean(RTs.sj_mean);
 RTs.group_sd = std(RTs.sj_mean);
 
+RTs.det.labels = {'miss' 'hit'};
 RTs.det.group_mean = mean(RTs.det.sj_mean);
 RTs.det.group_sd = std(RTs.det.sj_mean);
-RTs.det.BF10 = bf_ttest(RTs.det.sj_mean(:,1),RTs.det.sj_mean(:,2));
-RTs.det.labels = {'miss' 'hit'};
+RTs.det.BF10 = bf_ttest(RTs.det.sj_mean(:,1),RTs.det.sj_mean(:,2)); % Uses the ttest.m function from the bayesFactor toolbox (Bart Krekelberg (2021).
+                                                                    % bayesFactor (https://github.com/klabhub/bayesFactor)), renamed to bf_ttest.m
+                                                                    % to avoid naming conflicts  
 
 save(fullfile(trg_dir,'RTs.mat'),'RTs')
 
@@ -89,7 +91,7 @@ BF10_det_rep = nan(numel(SJs),1);
 for s = 1:numel(SJs)
     
     sj_trl_log = fullfile(data_dir, SJs{s}, log_dir, [log_f SJs{s} '.mat']);
-    load(log_file)
+    load(sj_trl_log)
     
     [~,det_idx] = ismember('det',trial_log.labels);
     [~,rep_idx] = ismember('rep',trial_log.labels);
@@ -101,15 +103,17 @@ for s = 1:numel(SJs)
     det_rep(1,2) = sum(dets==0 & reps==1);
     det_rep(2,1) = sum(dets==1 & reps==0);
     det_rep(2,2) = sum(dets==1 & reps==1);
-    BF10_det_rep(s) = c_table(det_rep);
+    BF10_det_rep(s) = c_table(det_rep);     % Uses the c_table.m function from the companion software to Johnson, V. E., & Albert, J. H. 
+                                            % (2006). Ordinal data modeling. Springer Science & Business Media. Available at: 
+                                            % https://de.mathworks.com/matlabcentral/fileexchange/2264-ordinal-data-modeling 
     
 end
 
 BF01_det_rep = 1./BF10_det_rep;
 
-det_rep.BF10 = BF10_det_rep;
-det_rep.BF01 = BF01_det_rep;
+Det_Rep.BF10 = BF10_det_rep;
+Det_Rep.BF01 = BF01_det_rep;
 
-save(fullfile(trg_dir, 'ResponseAssociations.mat'),'det_rep')
+save(fullfile(trg_dir, 'ResponseAssociations.mat'),'Det_Rep')
 
 
